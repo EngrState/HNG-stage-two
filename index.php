@@ -13,11 +13,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         echo json_encode(["error" => "Invalid JSON data"]);
         return;
     }
-    if (isset($data->name) && is_string($data->name)) {
-        $name = filter_var($data->name, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        // Use a prepared statement with a parameter placeholder (:name) to prevent SQL injection
-        $stmt = $conn->prepare("SELECT * FROM users WHERE name = :name");
-        $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+    if (isset($data->user_id) && is_int($data->user_id)) {
+        
+        $user_id = filter_var($data->user_id, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        
+      
+        $stmt = $conn->prepare("SELECT * FROM users WHERE id = :user_id");
+        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_STR);
         $stmt->execute();
 
         $details = $stmt->fetch(PDO::FETCH_ASSOC);
