@@ -9,7 +9,7 @@
 **Data Params**: JSON object in the request body with the following structure:
 ```json
 {
-    "name": "[string]"
+    "user_id": "[integer]"
 }
 ```
 
