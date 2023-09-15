@@ -15,7 +15,7 @@
 
 **Success Response**:
 - **Code**: `200 OK`
-- **Content**: `{ "name": "John Doe", ... }` (Additional fields depend on your database structure)
+- **Content**: `{ "id": "2", "name": "John Doe", ... }` 
 
 **Error Responses**:
 - If the JSON data is invalid:
