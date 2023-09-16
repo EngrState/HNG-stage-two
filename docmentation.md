@@ -2,7 +2,7 @@
 
 ### 1. GET User Details
 
-**Endpoint**: `https://statehng.topdatanig.com/api/`
+**Endpoint**: `https://statehng.topdatanig.com/api`
 
 **Method**: `GET`
 
@@ -30,7 +30,7 @@
 
 ### 2. Create User
 
-**Endpoint**: `https://statehng.topdatanig.com/api/`
+**Endpoint**: `https://statehng.topdatanig.com/api`
 
 **Method**: `POST`
 
@@ -62,7 +62,7 @@
 
 ### Update User Name
 
-**Endpoint**: `https://statehng.topdatanig.com/api/`
+**Endpoint**: `https://statehng.topdatanig.com/api`
 
 **Method**: `PUT`
 
@@ -96,7 +96,7 @@
 
 ### Delete User
 
-**Endpoint**: `https://statehng.topdatanig.com/api/`
+**Endpoint**: `https://statehng.topdatanig.com/api`
 
 **Method**: `DELETE`
 
