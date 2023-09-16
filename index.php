@@ -68,8 +68,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $stmt->bindParam(':name', $name);
 
             if ($stmt->execute()) {
+               $user_id = $conn->lastInsertId();
+               $date = date("Y-m-d H:i:s");
+    
                 http_response_code(200); // Created
-                echo json_encode(["message" => "User created successfully"]);
+                echo json_encode(["message" => "User created successfully", "user_id" => $user_id, "name" => $name, "date created"   => $date ]);
                 return;
             } else {
                 http_response_code(500); // Internal Server Error
