@@ -1,22 +1,17 @@
 <?php
-    require('config.php');
-    require('function.php');
+    require('new/config.php');
+    require('new/function.php');
 ?>
 <?php
+$segments = explode('/', $_SERVER['REQUEST_URI']);
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-       
-    $data = json_decode(file_get_contents("php://input"));
-    
-    if ($data === null) {
-        // Error in decoding JSON data
-        http_response_code(400); // Bad Request
-        echo json_encode(["error" => "Invalid JSON data"]);
-        return;
-    }
-    if (isset($data->user_id) && is_int($data->user_id)) {
-        
-        $user_id = filter_var($data->user_id, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        
+      
+
+    // Check if the URL path starts with '/api/' and if the HTTP request method is 'GET'
+    if ($segments[1] === 'api' && isset($segments[2]) ) {
+        // Get the user ID from the second segment of the URL path
+        $user = $segments[2];
+        $user_id = filter_var($user, FILTER_SANITIZE_NUMBER_INT);
       
         $stmt = $conn->prepare("SELECT * FROM users WHERE id = :user_id");
         $stmt->bindParam(':user_id', $user_id, PDO::PARAM_STR);
@@ -87,18 +82,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
 }elseif ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     $data = json_decode(file_get_contents("php://input"));
-     if ($data === null) {
+    if ($data === null) {
         // Error in decoding JSON data
         http_response_code(400); // Bad Request
         echo json_encode(["error" => "Invalid JSON data"]);
         return;
     }
-
-    if (!empty($data->name) && !empty($data->user_id) && is_string($data->name) ) {
+    if ($segments[1] === 'api' && isset($segments[2]) && !empty($data->name) && is_string($data->name)  ) {
+        // Get the user ID from the second segment of the URL path
+        $user = $segments[2];
+        $user_id = filter_var($user, FILTER_SANITIZE_NUMBER_INT);
+     
         
         $name = filter_var($data->name, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
    
-        $user_id = filter_var($data->user_id, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+       
         // Check if the new name already exists
         $stmt = $conn->prepare("SELECT * FROM users WHERE id = :user_id");
         $stmt->bindParam(':user_id', $user_id);
@@ -138,16 +136,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         echo "Invalid data";
     }
 }elseif ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
-    $data = json_decode(file_get_contents("php://input"));
-    if ($data === null) {
-        // Error in decoding JSON data
-        http_response_code(400); // Bad Request
-        echo json_encode(["error" => "Invalid JSON data"]);
-        return;
-    }
-    if (!empty($data->user_id)) {
-        
-        $user_id = filter_var($data->user_id, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    if ($segments[1] === 'api' && isset($segments[2])) {
+            // Get the user ID from the second segment of the URL path
+            $user = $segments[2];
+            $user_id = filter_var($user, FILTER_SANITIZE_NUMBER_INT);
         // Check if the new name already exists
         $stmt = $conn->prepare("SELECT * FROM users WHERE id = :user_id");
       
