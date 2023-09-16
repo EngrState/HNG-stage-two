@@ -1,6 +1,6 @@
 <?php
-    require('new/config.php');
-    require('new/function.php');
+    require('config.php');
+    require('function.php');
 ?>
 <?php
 $segments = explode('/', $_SERVER['REQUEST_URI']);
